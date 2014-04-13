@@ -15,7 +15,7 @@ $(function() {
 		type: 'GET',
 		contentType: 'application/json; charset=utf-8'
 	}).done(function(response) {
-		$('#editarea').val(response.documents.content);
+		$('#editarea').val(response.documents[0].content);
 	});
 
 	setInterval(function() {
@@ -24,7 +24,7 @@ $(function() {
 			type: 'GET',
 			contentType: 'application/json; charset=utf-8'
 		}).done(function(response) {
-			var storeddata = response.documents.content;
+			var storeddata = response.documents[0].content;
 			if (update) {
 				update = false;
 				var currentdata = $('#editarea').val();
