@@ -1,14 +1,22 @@
 // constants
 var UPDATE_INTERVAL = 2000;
-var BASEURL = '/';
+var BASEURL = '/documents/';
 
 var documentdata = '';
 
 $(function() {
 	var docid = $('#docid').val();
-	var docurl = BASEURL + docid;
+	var docurl = BASEURL + docid + '.json';
 	var user = $('#username').val();
 	var update = false;
+
+	$.ajax({
+		url: docurl,
+		type: 'GET',
+		contentType: 'application/json; charset=utf-8'
+	}).done(function(response) {
+		$('#editarea').val(response.documents.content);
+	});
 
 	setInterval(function() {
 		$.ajax({
@@ -16,14 +24,15 @@ $(function() {
 			type: 'GET',
 			contentType: 'application/json; charset=utf-8'
 		}).done(function(response) {
-			var storeddata = response.data;
+			var storeddata = response.documents.content;
 			if (update) {
 				update = false;
 				var currentdata = $('#editarea').val();
-				var newdata = {
-					user: user,
-					data: currentdata
-				};
+				var newdata = { documents: [{
+					id: docid,
+					last_edit_by: user,
+					content: currentdata
+				}]};
 				$.ajax({
 					url: docurl,
 					type: 'POST',
