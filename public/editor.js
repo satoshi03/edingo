@@ -6,12 +6,12 @@ var documentdata = '';
 
 $(function() {
 	var docid = $('#docid').val();
-	var docurl = BASEURL + docid + '.json';
+	var docurl = BASEURL + docid;
 	var user = $('#username').val();
 	var update = false;
 
 	$.ajax({
-		url: docurl,
+		url: docurl + '.json',
 		type: 'GET',
 		contentType: 'application/json; charset=utf-8'
 	}).done(function(response) {
@@ -20,7 +20,7 @@ $(function() {
 
 	setInterval(function() {
 		$.ajax({
-			url: docurl,
+			url: docurl + '.json',
 			type: 'GET',
 			contentType: 'application/json; charset=utf-8'
 		}).done(function(response) {
@@ -35,8 +35,8 @@ $(function() {
 				}]};
 				$.ajax({
 					url: docurl,
-					type: 'POST',
-					data: JSON.stringify(newdata)
+					type: 'PUT',
+					data: newdata
 				}).done(function() {
 					console.log('newdata is saved');
 				});
