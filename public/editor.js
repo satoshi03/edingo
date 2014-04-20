@@ -28,11 +28,11 @@ $(function() {
 			if (update) {
 				update = false;
 				var currentdata = $('#editarea').val();
-				var newdata = { documents: [{
+				var newdata = { document: {
 					id: docid,
 					last_edit_by: user,
 					content: currentdata
-				}]};
+				}};
 				$.ajax({
 					url: docurl,
 					type: 'PUT',

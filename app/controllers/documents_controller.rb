@@ -40,7 +40,8 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   def update
     if @document.update(document_params)
-      redirect_to @document, notice: 'Document was successfully updated.'
+      render :text => "Document was successfully updated.", :status => "302"
+      #redirect_to @document, notice: 'Document was successfully updated.'
     else
       render action: 'edit'
     end
@@ -101,6 +102,5 @@ class DocumentsController < ApplicationController
     def render_error(status, msg)
       render :text => msg, :status => status
     end
-
 
 end
